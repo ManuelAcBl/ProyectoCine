@@ -1,0 +1,72 @@
+header * {
+    all: unset;
+}
+
+header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0px 0px 15px 0px;
+    padding: 10px;
+}
+
+header h1,
+header a {
+    font-family: "Segoe UI";
+    font-size: 20px;
+}
+
+header ul {
+    display: flex;
+    gap: 10px;
+
+    list-style-type: none;
+    padding: 0px;
+}
+
+header a {
+    display: flex;
+    gap: 5px;
+
+    cursor: pointer;
+
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+header a img {
+    width: 25px;
+}
+
+#login {
+    color: white;
+    background-color: rgb(53, 53, 53);
+}
+
+#logout {
+    background-color: rgb(255, 74, 74);
+}
+
+#user {
+    color: white;
+    background-color: rgb(109, 187, 109);
+}
+
+header a:hover {
+    box-shadow: rgb(194, 194, 194) 1px 1px 5px;
+}
+
+header a:hover img {
+    animation: Animacion 0.5s infinite;
+}
+
+@keyframes Animacion {
+    50% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(10deg);
+    }
+}
