@@ -1,5 +1,9 @@
 <?php
 
+use manuel\cine\Config;
+
+spl_autoload_register(fn ($name) => include 'src/' . str_replace('manuel\cine', '', $name) . '.php');
+
 $ruta = explode('/', $_GET['ruta'] ?? '');
 
 $controlador = "controladores/$ruta[0].php";
