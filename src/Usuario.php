@@ -12,7 +12,7 @@ class Usuario
 
     public static function session_started(): bool
     {
-        return false;
+        return isset($_SESSION['usuario']);
     }
 
     public static function login(): void
@@ -22,7 +22,7 @@ class Usuario
 
     public static function is_admin(): bool
     {
-        return false;
+        return !empty($_SESSION['admin']);
     }
 
     public static function comprobar_datos(String $usuario, String $contrsena): bool

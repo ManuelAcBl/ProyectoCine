@@ -1,2 +1,6 @@
+Options +FollowSymLinks
+
+DirectoryIndex index.php
+
 RewriteEngine On
-RewriteRule ^.*(?<!\.(css|svg))$ index.php?ruta=$1 [L,QSA]
+RewriteRule ^([[:alpha:]]*)\/?(.*)(?<!\.css|svg)$ index.php?controller=$1&data=$2 [QSA,L]

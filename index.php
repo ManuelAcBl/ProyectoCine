@@ -1,6 +1,7 @@
 <?php
 
 use manuel\cine\Config;
+use manuel\cine\Utils;
 
 session_start();
 
@@ -8,9 +9,13 @@ spl_autoload_register(fn ($name) => include 'src/' . str_replace('manuel\cine', 
 
 var_dump($_GET);
 
-$ruta = explode('/', $_GET['ruta'] ?? '');
+// $ruta = explode('/', $_GET['ruta'] ?? '');
 
-$controlador = "controladores/$ruta[0].php";
+// $controlador = "controladores/$ruta[0].php";
+
+$controlador = $_GET['controller'] ?: 'index';
+
+var_dump($_SESSION);
 
 ?>
 
@@ -21,7 +26,8 @@ $controlador = "controladores/$ruta[0].php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="vistas/css/header.css">
+    <link rel="stylesheet" href="<?= Utils::PROJECT_URL ?>vistas/css/header.css">
+    <link rel="stylesheet" href="<?= Utils::PROJECT_URL ?>vistas/css/footer.css">
     <title>MiCine</title>
 </head>
 
@@ -31,7 +37,7 @@ $controlador = "controladores/$ruta[0].php";
     </header>
 
     <main>
-        <?php include file_exists($controlador) ? $controlador : 'vistas/404.php' ?>
+        <?php include "controladores/$controlador.php" ?>
     </main>
 
     <footer>

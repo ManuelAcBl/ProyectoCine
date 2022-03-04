@@ -1,5 +1,7 @@
 <?php
 
+use manuel\cine\Utils;
+
 $usuario = $_SESSION['usuario'] ?? '';
 
 ?>
@@ -13,21 +15,21 @@ $usuario = $_SESSION['usuario'] ?? '';
             <li><a href="#">Conócenos</a></li>
             <?php if (!$usuario) : ?>
                 <li>
-                    <a href="login.php" id="login">
+                    <a href="login" id="login">
                         Inicia Sesión
-                        <img src="vistas/images/svg/user/person-fill.svg" alt="Usuario" />
+                        <img src="<?= Utils::PROJECT_URL ?>vistas/images/svg/user/person-fill.svg" alt="Usuario" />
                     </a>
                 </li>
             <?php else : ?>
                 <li>
-                    <a href="user.php" id="user">
+                    <a href="user" id="user">
                         <?= $usuario ?>
-                        <img src="vistas/images/svg/user/person-fill.svg" alt="Usuario" />
+                        <img src="<?= Utils::PROJECT_URL ?>vistas/images/svg/user/person-fill.svg" alt="Usuario" />
                     </a>
                 </li>
                 <li>
-                    <a href="logout.php" id="logout">
-                        <img src="vistas/images/svg/user/person-x-fill.svg" alt="Usuario" />
+                    <a href="logout" id="logout">
+                        <img src="<?= Utils::PROJECT_URL ?>vistas/images/svg/user/person-x-fill.svg" alt="Usuario" />
                     </a>
                 </li>
             <?php endif; ?>

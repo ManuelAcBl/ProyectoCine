@@ -9,7 +9,7 @@ const REDIRECT = "index";
 if (Usuario::session_started())
     header('Location: ' . REDIRECT);
 
-include Utils::PROJECT_ROOT . '/modelos/login.php';
+//include Utils::PROJECT_ROOT . '/modelos/login.php';
 
 [$usuario, $contrasena] = Utils::input($_POST, ['usuario', 'contrasena']);
 
@@ -19,3 +19,5 @@ if ($usuario && $contrasena)
         header('Location: ' . REDIRECT);
     } else
         Vista::mostrar('login', ['error' => true]);
+else
+    Vista::mostrar('login');
