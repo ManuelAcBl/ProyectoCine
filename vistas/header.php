@@ -22,7 +22,7 @@ $usuario = $_SESSION['usuario'] ?? '';
                 </li>
             <?php else : ?>
                 <li>
-                    <a href="user" id="user">
+                    <a href="usuario" id="user">
                         <?= $usuario ?>
                         <img src="<?= Utils::PROJECT_URL ?>vistas/images/svg/user/person-fill.svg" alt="Usuario" />
                     </a>

@@ -10,7 +10,7 @@ class Vista
     {
         $archivo = self::VISTAS . "/$nombre.php";
 
-        $datos = $datos;
+        $datos = array_merge($datos, ['URL' => Utils::PROJECT_URL]);
 
         return file_exists($archivo) && require $archivo;
     }

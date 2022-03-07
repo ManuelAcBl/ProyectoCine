@@ -1,7 +1,19 @@
 <?php
 
 use manuel\cine\Vista;
+use manuel\cine\Usuario;
 
-$usuario = ['nombre' => 'Manuel', 'apellidos' => 'Acuña Blanco', 'dni' => '12345678E', 'telefono' => '123456789'];
+if (!Usuario::sesion_iniciada())
+    header('Location: login');
 
-Vista::mostrar('usuario', $usuario);
+$usuario = Usuario::obtener_datos(Usuario::usuario());
+$admin = Usuario::is_admin();
+$editar = $action == 'editar';
+
+$datos = [
+    'usuario' => $usuario,
+    'admin' => $admin,
+    'editar' => $editar
+];
+
+Vista::mostrar('usuario', $datos);

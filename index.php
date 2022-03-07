@@ -8,14 +8,10 @@ session_start();
 spl_autoload_register(fn ($name) => include 'src/' . str_replace('manuel\cine', '', $name) . '.php');
 
 var_dump($_GET);
-
-// $ruta = explode('/', $_GET['ruta'] ?? '');
-
-// $controlador = "controladores/$ruta[0].php";
+var_dump($_SESSION);
 
 $controlador = $_GET['controller'] ?: 'index';
-
-var_dump($_SESSION);
+$action = $_GET['action'] ?: '';
 
 ?>
 

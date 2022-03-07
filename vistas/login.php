@@ -6,3 +6,5 @@
         <p style="color: red;">Usuario o contraseña incorrectos.</p>
     <?php endif ?>
 </form>
+
+<a href="registro">No tengo cuenta</a>

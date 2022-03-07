@@ -3,4 +3,4 @@ Options +FollowSymLinks
 DirectoryIndex index.php
 
 RewriteEngine On
-RewriteRule ^([[:alpha:]]*)\/?(.*)(?<!\.css|svg)$ index.php?controller=$1&data=$2 [QSA,L]
+RewriteRule ^([[:alpha:]]*)\/?([[:alpha:]]*)\/?.*(?<!\.css|svg)$ index.php?controller=$1&action=$2 [QSA,L]

@@ -6,10 +6,8 @@ use manuel\cine\Vista;
 
 const REDIRECT = "index";
 
-if (Usuario::session_started())
+if (Usuario::sesion_iniciada())
     header('Location: ' . REDIRECT);
-
-//include Utils::PROJECT_ROOT . '/modelos/login.php';
 
 [$usuario, $contrasena] = Utils::input($_POST, ['usuario', 'contrasena']);
 
