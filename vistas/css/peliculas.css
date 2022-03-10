@@ -1,0 +1,41 @@
+.pelicula {
+    position: relative;
+    width: 350px;
+    height: 500px;
+    box-shadow: grey 1px 1px 10px;
+    cursor: pointer;
+}
+
+.pelicula:hover {
+    box-shadow: black 1px 1px 10px;
+}
+
+.pelicula__texto {
+    width: 100%;
+    box-sizing: border-box;
+
+    text-align: justify;
+    font-family: "Segoe UI";
+    text-shadow: black 1px 1px 10px;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+    position: absolute;
+    color: white;
+    bottom: 0px;
+    padding: 50px 10px 0px 10px;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pelicula__imagen {
+    width: 100%;
+}
+
+.anadir__pelicula {
+    opacity: 0.75;
+}

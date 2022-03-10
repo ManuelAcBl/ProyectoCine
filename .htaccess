@@ -1,6 +1,11 @@
-Options +FollowSymLinks
-
 DirectoryIndex index.php
-
 RewriteEngine On
-RewriteRule ^([[:alpha:]]*)\/?([[:alpha:]]*)\/?.*(?<!\.css|svg)$ index.php?controller=$1&action=$2 [QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*\.css)$ vistas/css/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*\.(jpg|png|svg))$ vistas/images/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.*)$ test.php?url=$1&root=%{REQUEST_FILENAME} [L]
+RewriteRule ^([[:alpha:]]*)\/?([[:alpha:]]*)\/?.*$ index.php?controller=$1&action=$2 [QSA,L]
