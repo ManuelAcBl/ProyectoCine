@@ -1,0 +1,21 @@
+.cine {
+
+}
+
+.cine__nombre {
+    margin: 2px 0px;
+}
+
+.cine__direccion {
+    display: flex;
+    margin-left: 10px;
+}
+
+.direccion__imagen {
+    width: 16px;
+}
+
+.direccion__texto {
+    text-decoration: none;
+    color: gray;
+}

@@ -2,4 +2,4 @@
 
 use manuel\cine\Vista;
 
-Vista::mostrar('cines');
+Vista::mostrar('editarpelicula');

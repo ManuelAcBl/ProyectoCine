@@ -3,11 +3,44 @@
     width: 350px;
     height: 500px;
     box-shadow: grey 1px 1px 10px;
+}
+
+/* .pelicula:hover {
+    box-shadow: black 1px 1px 10px;
+} */
+
+.pelicula__link:hover {
+    box-shadow: black 1px 1px 10px;
     cursor: pointer;
 }
 
-.pelicula:hover {
-    box-shadow: black 1px 1px 10px;
+.pelicula__opciones {
+    position: absolute;
+    display: flex;
+    visibility: hidden;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px;
+    padding: 6px;
+    right: 0px;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.pelicula:hover .pelicula__opciones {
+    visibility: visible;
+}
+
+.opciones__imagen {
+    width: 23px;
+}
+
+.opciones__imagen--eliminar:hover {
+    filter: invert(18%) sepia(80%) saturate(7229%) hue-rotate(358deg) brightness(119%) contrast(116%);
+}
+
+.opciones__imagen--editar:hover {
+    filter: invert(54%) sepia(72%) saturate(3946%) hue-rotate(92deg) brightness(126%) contrast(120%);
 }
 
 .pelicula__texto {
@@ -38,4 +71,11 @@ main {
 
 .anadir__pelicula {
     opacity: 0.75;
+}
+
+/* Editar */
+
+.editar {
+    display: flex;
+    gap: 30px;
 }

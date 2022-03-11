@@ -7,5 +7,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*\.(jpg|png|svg))$ vistas/images/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*\.(js))$ vistas/js/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteRule ^(.*)$ test.php?url=$1&root=%{REQUEST_FILENAME} [L]
 RewriteRule ^([[:alpha:]]*)\/?([[:alpha:]]*)\/?.*$ index.php?controller=$1&action=$2 [QSA,L]

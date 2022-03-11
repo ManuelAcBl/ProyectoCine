@@ -24,6 +24,7 @@ $action = $_GET['action'] ?: '';
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="<?= $controlador ?>.css">
+    <script defer src="<?= $controlador ?>.js"></script>
     <title>MiCine</title>
 </head>
 
