@@ -10,11 +10,11 @@ $cines = [
 
 <?php foreach ($cines as $cine) : ?>
     <article class="cine">
-        <img src="" class="cine__imagen">
+        <img src="/" class="cine__imagen">
         <h1 class="cine__nombre"><?= $cine['nombre'] ?></h1>
 
-        <div class="cine__direccion" href="#">
-            <img src="svg/map_marker.svg" class="direccion__imagen">
+        <div class="cine__direccion" href="/">
+            <img src="/svg/map_marker.svg" class="direccion__imagen">
             <a class="direccion__texto" href="#"><?= $cine['direccion'] ?></a>
         </div>
 

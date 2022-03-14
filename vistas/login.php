@@ -7,4 +7,4 @@
     <?php endif ?>
 </form>
 
-<a href="registro">No tengo cuenta</a>
+<a href="/registro">No tengo cuenta</a>

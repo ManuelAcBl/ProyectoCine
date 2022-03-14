@@ -1,0 +1,22 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 20px;
+}
+
+p {
+    max-width: 600px;
+}
+
+main * {
+    margin: 0px;
+}
+
+iframe {
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+}

@@ -2,14 +2,7 @@
 
 use manuel\cine\Vista;
 
-switch ($action) {
-    case 'anadir':
-        
-        break;
-    
-    default:
-        # code...
-        break;
-}
-
-Vista::mostrar('peliculas');
+if ($action)
+    Vista::mostrar('pelicula');
+else
+    Vista::mostrar('peliculas');

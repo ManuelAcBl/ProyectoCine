@@ -7,7 +7,7 @@ $descripcion = $_POST['descripcion'] ?? 'asdasdsad fdsafsa asdfafd';
 
 ?>
 
-<link rel="stylesheet" href="peliculas.css">
+<link rel="stylesheet" href="/peliculas.css">
 <section class="editar">
     <section class="editar__formulario">
         <form action="" method="post">
@@ -28,7 +28,7 @@ $descripcion = $_POST['descripcion'] ?? 'asdasdsad fdsafsa asdfafd';
     </section>
     <section class="editar__previsualizacion">
         <article class="pelicula">
-            <img src="svg/film_image.svg" class="pelicula__imagen" />
+            <img src="/svg/film_image.svg" class="pelicula__imagen" />
 
             <div class="pelicula__texto">
                 <h1 class="pelicula__titulo"><?= $titulo ?></h1>

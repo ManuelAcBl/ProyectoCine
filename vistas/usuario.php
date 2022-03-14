@@ -6,7 +6,7 @@ $usuario = $datos['usuario'];
 ?>
 
 <h3>Datos usuario</h3>
-<form action="<?= $datos['URL'] ?>editar" method="post" class="usuario__datos">
+<form action="/editar" method="post" class="usuario__datos">
     <div class="usuario__dato">
         <label for="nombre" class="input__label">Nombre</label>
         <input type="text" class="input__input" id="nombre" name="nombre" value="<?= $usuario['nombre'] ?>" <?= $disabled ?>>
@@ -36,9 +36,9 @@ $usuario = $datos['usuario'];
 
     <?php if ($datos['editar']) : ?>
         <input type="submit" value="Guardar">
-        <a href="<?= $datos['URL'] ?>usuario">Descartar</a>
+        <a href="/usuario">Descartar</a>
     <?php else : ?>
-        <a href="<?= $datos['URL'] ?>usuario/editar">Editar</a>
+        <a href="/usuario/editar">Editar</a>
     <?php endif ?>
 
 </form>
