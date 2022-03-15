@@ -1,10 +1,33 @@
 <?php
 
-use manuel\cine\Usuario;
+use manuel\cine\Carrito;
 use manuel\cine\Utils;
 use manuel\cine\Vista;
 
-if ($action == 'anadir' && Usuario::sesion_iniciada()) {
-    [$sesion] = Utils::input($_POST, ['sesion']);
-} else
-    Vista::mostrar('carrito');
+[$id, $unidades] = Utils::input($_POST, ['id', 'unidades']);
+
+switch ($accion) {
+    case 'anadir':
+        if ($id && $unidades)
+            Carrito::anadir($id, $unidades);
+
+        header('Location: /carrito');
+        break;
+
+    case 'eliminar':
+        if ($id)
+            Carrito::eliminar($id);
+
+        header('Location: /carrito');
+        break;
+
+    default:
+        include 'modelos/carrito.php';
+        Vista::mostrar('carrito', ['sesiones' => $sesiones]);
+        break;
+}
+
+// if ($action == 'anadir' && Usuario::id_iniciada()) {
+//     [$id] = Utils::input($_POST, ['id']);
+// } else
+//     Vista::mostrar('carrito');

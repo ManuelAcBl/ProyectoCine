@@ -9,10 +9,10 @@ class Usuario
      * 
      * @param String usuario The username of the user to log in.
      */
-    public static function iniciar_sesion(String $usuario): void
+    public static function iniciar_sesion(String $correo): void
     {
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['admin'] = (bool) DB::run('SELECT admin FROM Usuarios WHERE usuario = ?', [$usuario])->fetchColumn();
+        $_SESSION['usuario'] = $correo;
+        $_SESSION['admin'] = (bool) DB::run('SELECT admin FROM Usuarios WHERE correo = ?', [$correo])->fetchColumn();
     }
 
     /**
@@ -25,11 +25,6 @@ class Usuario
         return isset($_SESSION['usuario']);
     }
 
-    /**
-     * Returns the current user's username
-     * 
-     * @return The name of the user logged in.
-     */
     public static function usuario(): String
     {
         return $_SESSION['usuario'];
@@ -73,9 +68,9 @@ class Usuario
      * 
      * @return Nothing.
      */
-    public static function comprobar_datos(String $usuario, String $contrsena): bool
+    public static function comprobar_datos(String $correo, String $contrsena): bool
     {
-        $hash = DB::run('SELECT contrasena FROM Usuarios WHERE usuario = ?', [$usuario])->fetchColumn();
+        $hash = DB::run('SELECT contrasena FROM Usuarios WHERE correo = ?', [$correo])->fetchColumn();
 
         return password_verify($contrsena, $hash);
     }

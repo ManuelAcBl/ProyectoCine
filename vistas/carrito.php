@@ -1,45 +1,50 @@
 <?php
 
+use manuel\cine\Usuario;
+
+$sesiones = $datos['sesiones'];
 
 ?>
 
 <h1>Carrito</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Película</th>
-            <th>Sala</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>The Batman</td>
-            <td>2</td>
-            <td>15:00</td>
-            <td>17:00</td>
-            <td><a href=""><img src="/svg/trash-fill.svg"></a></td>
-        </tr>
-        <tr>
-            <td>The Batman</td>
-            <td>2</td>
-            <td>15:00</td>
-            <td>17:00</td>
-            <td><a href=""><img src="/svg/trash-fill.svg"></a></td>
-        </tr>
-        <tr>
-            <td>The Batman</td>
-            <td>2</td>
-            <td>15:00</td>
-            <td>17:00</td>
-            <td><a href=""><img src="/svg/trash-fill.svg"></a></td>
-        </tr>
-    </tbody>
-</table>
+<?php if ($sesiones) : ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Película</th>
+                <th>Sala</th>
+                <th>Hora</th>
+                <th>Precio</th>
+                <th>Uds.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($sesiones as $sesion) : ?>
+                <tr>
+                    <td><?= $sesion['titulo'] ?></td>
+                    <td><?= $sesion['sala'] ?></td>
+                    <td><?= $sesion['fecha'] ?></td>
+                    <td><?= number_format($sesion['precio'], 2) ?> €</td>
+                    <td><?= $sesion['unidades'] ?></td>
+                    <td>
+                        <form action="/carrito/eliminar" method="post">
+                            <input type="hidden" name="id" value="<?= $sesion['id'] ?>">
+                            <input type="image" src="/svg/trash-fill.svg" alt="Eliminar">
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
 
-<a href="/comprar" class="button button--user">
-    Comprar
-    <img class="button__image" src="/svg/trash-fill.svg">
-</a>
+    <?php if (Usuario::sesion_iniciada()) : ?>
+        <a href="/comprar" class="button button--user">
+            Comprar
+        </a>
+    <?php else : ?>
+        <p>Tienes que iniciar sesión para completar tu pedido.</p>
+    <?php endif ?>
+<?php else : ?>
+    <p>El carrito está vacío.</p>
+<?php endif ?>

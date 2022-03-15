@@ -1,33 +1,26 @@
 <?php
 
-// $peliculas = [
-//     ['codigo' => 'abc', 'titulo' => 'Prueba', 'descripcion' => 'asdasdasd', 'imagen' => 'batman.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 2', 'descripcion' => 'asdasdfdsfdsgfdasd', 'imagen' => 'boba_fett.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 3', 'descripcion' => 'asdasdgczxcxzcxzcxzcasd', 'imagen' => 'casate_conmigo.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 4', 'descripcion' => 'asdasdzxcasd', 'imagen' => 'cyrano.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 4', 'descripcion' => 'asdasdzxcasd', 'imagen' => 'dog_viaje_salvaje.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 4', 'descripcion' => 'asdasdzxcasd', 'imagen' => 'muerte_nilo.jpg'],
-//     ['codigo' => 'abc', 'titulo' => 'Prueba 4', 'descripcion' => 'asdasdzxcasd', 'imagen' => 'luz_negra.jpg']
-// ];
+use manuel\cine\Usuario;
 
-use manuel\cine\DB;
-
-$peliculas = DB::run("SELECT * FROM peliculas");
+$peliculas = $datos['peliculas'];
 
 ?>
 
 <?php foreach ($peliculas as $pelicula) : ?>
     <article class="pelicula">
-        <div class="pelicula__opciones">
-            <a href="/editarpelicula" class="opciones__elemento">
-                <img src="/svg/pencil-fill.svg" alt="Editar" class="opciones__imagen opciones__imagen--editar">
-            </a>
-            <a href="" class="opciones__elemento">
-                <img src="/svg/trash-fill.svg" alt="Eliminar" class="opciones__imagen opciones__imagen--eliminar">
-            </a>
-        </div>
+        <?php if (Usuario::is_admin()) : ?>
+            <div class="pelicula__opciones">
+                <a href="/peliculas/editar/<?= $pelicula['id'] ?>" class="opciones__elemento">
+                    <img src="/svg/pencil-fill.svg" alt="Editar" class="opciones__imagen opciones__imagen--editar">
+                </a>
+                <form action="/peliculas/eliminar" method="post" class="opciones__elemento">
+                    <input type="hidden" name="id" value="<?= $pelicula['id'] ?>">
+                    <input type="image" src="/svg/trash-fill.svg" alt="Eliminar" class="opciones__imagen opciones__imagen--eliminar">
+                </form>
+            </div>
+        <?php endif ?>
 
-        <a href="/pelicula/<?= $pelicula['id'] ?>" class="pelicula__link">
+        <a href="/peliculas/mostrar/<?= $pelicula['id'] ?>" class="pelicula__link">
             <img src="/peliculas/<?= $pelicula['imagen'] ?>" class="pelicula__imagen" />
 
             <div class="pelicula__texto">
@@ -38,8 +31,8 @@ $peliculas = DB::run("SELECT * FROM peliculas");
     </article>
 <?php endforeach ?>
 
-<a href="editarpelicula" class="pelicula__link anadir__pelicula">
+<a href="peliculas/editar" class="pelicula__link anadir__pelicula">
     <article class="pelicula">
-        <img src="/svg/film_add.svg" class="pelicula__imagen" />
+        <img src="/peliculas/anadir.png" class="pelicula__imagen" />
     </article>
 </a>

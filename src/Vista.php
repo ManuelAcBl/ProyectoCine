@@ -4,8 +4,6 @@ namespace manuel\cine;
 
 class Vista
 {
-    /* This is a constant. It is a variable that cannot be changed. */
-    public const CARPETA_VISTAS = 'vistas';
 
     /**
      * The function takes a string and an array as parameters. 
@@ -18,10 +16,13 @@ class Vista
      * 
      * @return Nothing.
      */
-    public static function mostrar(String $nombre, array $datos = []): bool
+    public static function mostrar(String $vista, array $datos = []): void
     {
-        $archivo = self::CARPETA_VISTAS . "/$nombre.php";
+        include 'vistas/main.php';
+    }
 
-        return file_exists($archivo) && require $archivo;
+    public static function mostrar_json(array $datos): void
+    {
+        print(json_encode($datos));
     }
 }

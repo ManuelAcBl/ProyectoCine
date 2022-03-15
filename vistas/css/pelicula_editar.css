@@ -1,0 +1,72 @@
+.pelicula {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    box-shadow: grey 1px 1px 10px;
+    cursor: pointer;
+}
+
+.pelicula__imagen {
+    width: 100%;
+}
+
+.pelicula__texto {
+    width: 100%;
+    box-sizing: border-box;
+
+    text-align: justify;
+    font-family: "Segoe UI";
+    text-shadow: black 1px 1px 10px;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+    position: absolute;
+    color: white;
+    bottom: 0px;
+    padding: 50px 10px 0px 10px;
+}
+
+.pelicula__titulo {
+    position: relative;
+    top: -10px;
+    margin: 10px 0px;
+}
+
+.pelicula__descripcion {
+    position: relative;
+    top: -10px;
+    margin: 5px 0px;
+}
+
+.pelicula__descripcion {
+    line-height: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+label, input {
+    font-size: 17px;
+}
+
+td {
+    padding: 5px;
+}
+
+main {
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .editar {
+        flex-direction: column;
+    }
+}
