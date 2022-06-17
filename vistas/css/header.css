@@ -82,6 +82,19 @@ header {
     height: 26px;
 }
 
+.location {
+    background-color: rgb(83 163 83);
+    padding: 5px 5px;
+}
+
+.location__selector {
+    background-color: white;
+    padding: 0px 15px 0px 15px;
+    border-radius: 5px;
+
+    text-align: center;
+}
+
 @media (max-width: 700px) {
     header {
         flex-direction: column;
@@ -106,6 +119,10 @@ header {
     }
 
     .user-buttons {
+        order: -2;
+    }
+
+    .location {
         order: -1;
     }
 

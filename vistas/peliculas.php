@@ -2,7 +2,7 @@
 
 use manuel\cine\Usuario;
 
-$peliculas = $datos['peliculas'];
+$peliculas = [];
 
 ?>
 
@@ -31,8 +31,8 @@ $peliculas = $datos['peliculas'];
     </article>
 <?php endforeach ?>
 
-<a href="peliculas/editar" class="pelicula__link anadir__pelicula">
+<!-- <a href="peliculas/editar" class="pelicula__link anadir__pelicula">
     <article class="pelicula">
         <img src="/peliculas/anadir.png" class="pelicula__imagen" />
     </article>
-</a>
+</a> -->

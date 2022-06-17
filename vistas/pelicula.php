@@ -1,10 +1,10 @@
 <?php
 
-$pelicula = $datos['pelicula'];
+//$pelicula = $datos['pelicula'];
 
 ?>
 
-<article class="pelicula">
+<!-- <article class="pelicula">
     <img src="/peliculas/<?= $pelicula['imagen'] ?>" class="pelicula__imagen" />
 
     <div class="pelicula__info">
@@ -34,4 +34,4 @@ $pelicula = $datos['pelicula'];
         </div>
 
     </div>
-</article>
+</article> -->

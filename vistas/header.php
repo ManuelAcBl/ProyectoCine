@@ -2,6 +2,8 @@
 
 include 'modelos/usuario.php';
 
+$provincias = ["Pontevedra", "Orense", "La Coruña", "Lugo"];
+
 ?>
 
 <div class="header__main">
@@ -13,8 +15,17 @@ include 'modelos/usuario.php';
 <nav>
     <ul class="navbar navbar--hidden">
         <li><a class="button" href="/peliculas">Cartelera</a></li>
-        <li><a class="button" href="/conocenos">Conócenos</a></li>
-        <li><a class="button" href="/carrito">Carrito</a></li>
+        <li><a class="button" href="/conocenos">Cines</a></li>
+        <!-- <li><a class="button" href="/carrito">Carrito</a></li> -->
+        <li class="button location">
+            <select id="location_selector" onchange="update_peliculas()" class="location__selector">
+                    <option value="pontevedra">Pontevedra</option>
+                    <option value="orense">Orense</option>
+                    <option value="coruna">La Coruña</option>
+                    <option value="lugo">Lugo</option>
+            </select>
+            <img class="button__img button__img--animate" src="/svg/location.svg" alt="Usuario" />
+        </li>
         <?php if (!$usuario) : ?>
             <li class="user-buttons">
                 <a href="/usuario/iniciar" class="button button--login">

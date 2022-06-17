@@ -7,8 +7,9 @@ use manuel\cine\Vista;
 
 switch ($accion) {
     case 'mostrar':
-        include 'modelos/pelicula.php';
-        Vista::mostrar('pelicula', ['pelicula' => $pelicula]);
+        //include 'modelos/pelicula.php';
+        //Vista::mostrar('pelicula', ['pelicula' => $pelicula]);
+        Vista::mostrar('pelicula');
         break;
 
     case 'editar':
