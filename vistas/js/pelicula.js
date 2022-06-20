@@ -75,7 +75,7 @@ async function datos_cine(cine) {
 
     return {
         nombre: response.tituloCompleto.substring(3, 2).toUpperCase() + response.tituloCompleto.substring(3),
-        direccion: response.direccion,
+        direccion: response.direccion
     };
 }
 
@@ -143,9 +143,8 @@ async function datos_sesion(cine, id_sesion) {
     const response = await (await fetch(url)).json();
 
     let precio;
-    
-    if(response.plano)
-        precio = response.plano[0].Importe;
+
+    if (response.plano) precio = response.plano[0].Importe;
 
     return {
         aforo: response.aforo,
@@ -163,6 +162,63 @@ async function datos_pelicula_galicine(slug) {
         id: response.idGalicine,
         titulo: response.titulo,
     };
+}
+
+//
+// YELMO CINES
+//
+
+const URL_YEMLO = "https://www.yelmocines.es";
+
+const Provincias_yelmo = {
+    PONTEVEDRA: "pontevedra",
+    CORUNA: "a-coruna",
+    LUGO: "lugo",
+    ORENSE: "",
+};
+
+async function get_peliculas_yelmo(provincia) {
+    const url = `${URL_YEMLO}/cartelera/${provincia}`;
+
+    const response = await (await fetch(get_url(url))).text();
+
+    const html = new DOMParser().parseFromString(response, "text/html");
+
+    const peliculas = [];
+
+    for (const cine of html.getElementsByClassName("now__cinema")) {
+        const nombre_cine = "Yelmo " + cine.querySelector("h2 a").innerText;
+
+        const peliculas_cine = [];
+        for (const pelicula of cine.getElementsByClassName("descripcion")) {
+            const titulo = pelicula.querySelector("h3 a").innerText;
+            const horas = [...pelicula.querySelectorAll("time")].map(hora => hora.innerText);
+
+            peliculas_cine.push({
+                titulo: titulo,
+                horas: horas,
+            });
+        }
+
+        peliculas.push({
+            cine: nombre_cine,
+            peliculas: peliculas_cine,
+        });
+    }
+
+    return peliculas;
+}
+
+function get_url(url) {
+    const proxy_url = "https://phantomjscloud.com/api/browser/v2";
+    const key = "ak-qq6d6-0wja5-bqha0-rjtyg-svzsk";
+    const arguments = {
+        url: url,
+        renderType: "html",
+        overseerScript: "await page.waitForNavigation({waitUntil:'domcontentloaded'}); page.done();",
+    };
+
+    return `${proxy_url}/${key}/?request=${JSON.stringify(arguments)}`;
 }
 
 //
@@ -246,45 +302,97 @@ function get_raw_fecha() {
     return `${fecha[2].padStart(4, "0")}-${fecha[1].padStart(2, "0")}-${fecha[0].padStart(2, "0")}`;
 }
 
-async function update_peliculas() {
+function update_peliculas() {
     datos_sesiones.innerHTML = "";
 
-    for (const id_cine of Provincias[location_selector.value.toUpperCase()]) {
-        const sesiones = await get_sesiones(id_cine, id, get_fecha());
+    (async () => {
+        for (const id_cine of Provincias[location_selector.value.toUpperCase()]) {
+            const sesiones = await get_sesiones(id_cine, id, get_fecha());
 
-        const cine = await datos_cine(id_cine);
+            const cine = await datos_cine(id_cine);
 
-        if(sesiones.length == 0)
-            datos_sesiones.innerHTML += `
-                <tr>
-                    <td>${cine.nombre}</td>
-                    <td colspan="3">No hay sesiones</td>
-                </tr>
-            `;
-
-        for (let y = 0; y < sesiones.length; y++) {
-            const sesion = sesiones[y];
-
-            let precio = "";
-
-            if(sesion.precio)
-                precio = sesion.precio.toFixed(2) + " €";
-
-            let html = "<tr>";
-
-            if (y == 0)
-                html += `
-                    <td rowspan="${sesiones.length}">${cine.nombre}</td>
+            if (sesiones.length == 0)
+                datos_sesiones.innerHTML += `
+                    <tr>
+                        <td>${cine.nombre}</td>
+                        <td colspan="3">No hay sesiones</td>
+                    </tr>
                 `;
 
-            html += `
-                    <td>${sesion.hora}</td>
-                    <td>${precio}</td>
-                    <td>${sesion.disponibles}/${sesion.aforo}</td>
-                </tr>
-            `;
+            for (let y = 0; y < sesiones.length; y++) {
+                const sesion = sesiones[y];
 
-            datos_sesiones.innerHTML += html;
+                let precio = "";
+
+                if (sesion.precio) precio = sesion.precio.toFixed(2) + " €";
+
+                let html = "<tr>";
+
+                if (y == 0)
+                    html += `
+                        <td rowspan="${sesiones.length}">${cine.nombre}</td>
+                    `;
+
+                html += `
+                        <td>${sesion.hora}</td>
+                        <td>${precio}</td>
+                        <td>${sesion.disponibles}/${sesion.aforo}</td>
+                    </tr>
+                `;
+
+                datos_sesiones.innerHTML += html;
+            }
         }
-    }
+    })();
+
+    get_peliculas_yelmo(Provincias_yelmo[location_selector.value.toUpperCase()]).then(datos => {
+        for (const dato of datos) {
+            let pelicula = null;
+
+            as: for (const pel of dato.peliculas) {
+                const pel_words = pel.titulo.split(" ").map(val => val.toUpperCase());
+                const id_words = id_pelicula.split("-").map(val => val.toUpperCase());
+
+                const conc = [...new Set(pel_words.concat(id_words))];
+
+                //console.log(pel_words);
+                //console.log(id_words);
+                //console.log((pel_words.length - conc.length) / pel_words.length);
+
+                if (((pel_words.length - conc.length) / pel_words.length) <= 0.5) {
+                    pelicula = pel;
+                    break as;
+                }
+            }
+
+            //console.log(pelicula);
+
+            if (pelicula != null) {
+                for (let y = 0; y < pelicula.horas.length; y++) {
+                    let html = "<tr>";
+
+                    if (y == 0)
+                        html += `
+                            <td rowspan="${pelicula.horas.length}">${dato.cine}</td>
+                        `;
+
+                    html += `
+                        <td>${pelicula.horas[y]}</td>
+                        <td>6.00€</td>
+                        <td>Desconocido</td>
+                        </tr>
+                    `;
+
+                    datos_sesiones.innerHTML += html;
+                }
+            } else {
+                datos_sesiones.innerHTML += `
+                    <tr>
+                        <td>${dato.cine}</td>
+                        <td colspan="3">No hay sesiones</td>
+                    </tr>
+                `;
+            }
+        }
+    });
 }

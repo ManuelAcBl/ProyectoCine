@@ -106,6 +106,63 @@ async function datos_pelicula_galicine(slug) {
 }
 
 //
+// YELMO CINES
+//
+
+const URL_YEMLO = "https://www.yelmocines.es";
+
+const Provincias_yelmo = {
+    PONTEVEDRA: "pontevedra",
+    CORUNA: "a-coruna",
+    LUGO: "lugo",
+    ORENSE: "",
+};
+
+async function get_peliculas_yelmo(provincia) {
+    const url = `${URL_YEMLO}/cartelera/${provincia}`;
+
+    const response = await (await fetch(get_url(url))).text();
+
+    const html = new DOMParser().parseFromString(response, "text/html");
+
+    const peliculas = [];
+
+    for (const cine of html.getElementsByClassName("now__cinema")) {
+        const nombre_cine = "Yelmo " + cine.querySelector("h2 a").innerText;
+
+        const peliculas_cine = [];
+        for (const pelicula of cine.getElementsByClassName("descripcion")) {
+            const titulo = pelicula.querySelector("h3 a").innerText;
+            const horas = [...pelicula.querySelectorAll("time")].map(hora => hora.innerText);
+
+            peliculas_cine.push({
+                titulo: titulo,
+                horas: horas,
+            });
+        }
+
+        peliculas.push({
+            cine: nombre_cine,
+            peliculas: peliculas_cine
+        });
+    }
+
+    return peliculas;
+}
+
+function get_url(url) {
+    const proxy_url = "https://phantomjscloud.com/api/browser/v2";
+    const key = "ak-qq6d6-0wja5-bqha0-rjtyg-svzsk";
+    const arguments = {
+        url: url,
+        renderType: "html",
+        overseerScript: "await page.waitForNavigation({waitUntil:'domcontentloaded'}); page.done();"
+    };
+
+    return `${proxy_url}/${key}/?request=${JSON.stringify(arguments)}`;
+}
+
+//
 // IMDB
 //
 
@@ -150,5 +207,9 @@ function update_peliculas() {
                 </article>
             `;
         }
+    });
+
+    get_peliculas_yelmo(Provincias_yelmo[location_selector.value.toUpperCase()]).then(peliculas => {
+
     });
 }
